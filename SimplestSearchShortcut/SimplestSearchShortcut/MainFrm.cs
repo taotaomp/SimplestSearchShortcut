@@ -37,7 +37,8 @@ namespace SimplestSearchShortcut
                 }
                 else
                 {
-                    System.Diagnostics.Process.Start("chrome.exe", str + textBox1.Text);
+                    textBox1.Text = textBox1.Text.Replace("#", "%23");
+                    System.Diagnostics.Process.Start("chrome.exe", str +textBox1.Text);
                     textBox1.Text = String.Empty;
                 }
                 
