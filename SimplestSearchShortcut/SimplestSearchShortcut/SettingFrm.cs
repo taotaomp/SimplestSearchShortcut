@@ -32,6 +32,10 @@ namespace SimplestSearchShortcut
             {
                 item = @"https://www.google.co.jp/search?source=hp&q=";
             }
+            else if (sender.Equals(radioButtonBilbili))
+            {
+                item = @"https://search.bilibili.com/all?keyword=";
+            }
             
         }
 

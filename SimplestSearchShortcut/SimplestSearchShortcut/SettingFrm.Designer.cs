@@ -29,14 +29,16 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButtonBaidu = new System.Windows.Forms.RadioButton();
-            this.radioButtonSougou = new System.Windows.Forms.RadioButton();
             this.radioButtonGoogle = new System.Windows.Forms.RadioButton();
+            this.radioButtonSougou = new System.Windows.Forms.RadioButton();
+            this.radioButtonBaidu = new System.Windows.Forms.RadioButton();
+            this.radioButtonBilbili = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.radioButtonBilbili);
             this.panel1.Controls.Add(this.radioButtonGoogle);
             this.panel1.Controls.Add(this.radioButtonSougou);
             this.panel1.Controls.Add(this.radioButtonBaidu);
@@ -45,23 +47,23 @@
             this.panel1.Size = new System.Drawing.Size(145, 123);
             this.panel1.TabIndex = 0;
             // 
-            // radioButtonBaidu
+            // radioButtonGoogle
             // 
-            this.radioButtonBaidu.AutoSize = true;
-            this.radioButtonBaidu.Location = new System.Drawing.Point(47, 35);
-            this.radioButtonBaidu.Name = "radioButtonBaidu";
-            this.radioButtonBaidu.Size = new System.Drawing.Size(47, 16);
-            this.radioButtonBaidu.TabIndex = 1;
-            this.radioButtonBaidu.TabStop = true;
-            this.radioButtonBaidu.Text = "百度";
-            this.radioButtonBaidu.UseVisualStyleBackColor = true;
-            this.radioButtonBaidu.CheckedChanged += new System.EventHandler(this.radioButtonBaidu_CheckedChanged);
-            this.radioButtonBaidu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radioButtonGoogle_KeyPress);
+            this.radioButtonGoogle.AutoSize = true;
+            this.radioButtonGoogle.Location = new System.Drawing.Point(48, 64);
+            this.radioButtonGoogle.Name = "radioButtonGoogle";
+            this.radioButtonGoogle.Size = new System.Drawing.Size(47, 16);
+            this.radioButtonGoogle.TabIndex = 2;
+            this.radioButtonGoogle.TabStop = true;
+            this.radioButtonGoogle.Text = "谷歌";
+            this.radioButtonGoogle.UseVisualStyleBackColor = true;
+            this.radioButtonGoogle.CheckedChanged += new System.EventHandler(this.radioButtonBaidu_CheckedChanged);
+            this.radioButtonGoogle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radioButtonGoogle_KeyPress);
             // 
             // radioButtonSougou
             // 
             this.radioButtonSougou.AutoSize = true;
-            this.radioButtonSougou.Location = new System.Drawing.Point(47, 57);
+            this.radioButtonSougou.Location = new System.Drawing.Point(48, 42);
             this.radioButtonSougou.Name = "radioButtonSougou";
             this.radioButtonSougou.Size = new System.Drawing.Size(47, 16);
             this.radioButtonSougou.TabIndex = 0;
@@ -71,18 +73,31 @@
             this.radioButtonSougou.CheckedChanged += new System.EventHandler(this.radioButtonBaidu_CheckedChanged);
             this.radioButtonSougou.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radioButtonGoogle_KeyPress);
             // 
-            // radioButtonGoogle
+            // radioButtonBaidu
             // 
-            this.radioButtonGoogle.AutoSize = true;
-            this.radioButtonGoogle.Location = new System.Drawing.Point(47, 79);
-            this.radioButtonGoogle.Name = "radioButtonGoogle";
-            this.radioButtonGoogle.Size = new System.Drawing.Size(47, 16);
-            this.radioButtonGoogle.TabIndex = 2;
-            this.radioButtonGoogle.TabStop = true;
-            this.radioButtonGoogle.Text = "谷歌";
-            this.radioButtonGoogle.UseVisualStyleBackColor = true;
-            this.radioButtonGoogle.CheckedChanged += new System.EventHandler(this.radioButtonBaidu_CheckedChanged);
-            this.radioButtonGoogle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radioButtonGoogle_KeyPress);
+            this.radioButtonBaidu.AutoSize = true;
+            this.radioButtonBaidu.Location = new System.Drawing.Point(48, 20);
+            this.radioButtonBaidu.Name = "radioButtonBaidu";
+            this.radioButtonBaidu.Size = new System.Drawing.Size(47, 16);
+            this.radioButtonBaidu.TabIndex = 1;
+            this.radioButtonBaidu.TabStop = true;
+            this.radioButtonBaidu.Text = "百度";
+            this.radioButtonBaidu.UseVisualStyleBackColor = true;
+            this.radioButtonBaidu.CheckedChanged += new System.EventHandler(this.radioButtonBaidu_CheckedChanged);
+            this.radioButtonBaidu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radioButtonGoogle_KeyPress);
+            // 
+            // radioButtonBilbili
+            // 
+            this.radioButtonBilbili.AutoSize = true;
+            this.radioButtonBilbili.Location = new System.Drawing.Point(48, 86);
+            this.radioButtonBilbili.Name = "radioButtonBilbili";
+            this.radioButtonBilbili.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonBilbili.TabIndex = 3;
+            this.radioButtonBilbili.TabStop = true;
+            this.radioButtonBilbili.Text = "Bilibili";
+            this.radioButtonBilbili.UseVisualStyleBackColor = true;
+            this.radioButtonBilbili.CheckedChanged += new System.EventHandler(this.radioButtonBaidu_CheckedChanged);
+            this.radioButtonBilbili.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radioButtonGoogle_KeyPress);
             // 
             // SettingFrm
             // 
@@ -109,5 +124,6 @@
         private System.Windows.Forms.RadioButton radioButtonGoogle;
         private System.Windows.Forms.RadioButton radioButtonSougou;
         private System.Windows.Forms.RadioButton radioButtonBaidu;
+        private System.Windows.Forms.RadioButton radioButtonBilbili;
     }
 }
