@@ -73,6 +73,10 @@ namespace SimplestSearchShortcut
                     textBox1.Text = buff[index].ToString();
 
                 }
+                if (e.KeyChar == 1)     //ctrl + a
+                {
+                    textBox1.SelectAll();
+                }
             }
             catch(rollBackUpException)
             {
