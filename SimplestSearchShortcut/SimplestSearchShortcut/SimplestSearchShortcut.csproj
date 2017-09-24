@@ -54,6 +54,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rollBackDownException.cs" />
+    <Compile Include="rollBackUpException.cs" />
     <Compile Include="SettingFrm.cs">
       <SubType>Form</SubType>
     </Compile>

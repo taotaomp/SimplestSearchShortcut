@@ -42,19 +42,48 @@ namespace SimplestSearchShortcut
                 {
                     //加入缓冲，刷新缓冲读取索引
                     buff.Add(textBox1.Text);
-                    index = buff.Count - 1;
+                    index = buff.Count;
 
                     textBox1.Text = textBox1.Text.Replace("#", "%23");      //将#替换为替代符，使浏览器能识别，下同
                     textBox1.Text = textBox1.Text.Replace(" ", "+");
 
                     System.Diagnostics.Process.Start("chrome.exe", str +textBox1.Text);
-                    textBox1.Text = String.Empty;
+                    textBox1.Text = "";
                 } 
             }
             if (e.KeyChar == 27)        //esc
             {
                 this.Close();
             }
+            try
+            {
+
+                if (e.KeyChar == 26)        //ctrl + z  向上回滚
+                {
+                    //只有在非底部才可以向上
+                    index--;
+                    if (index < 0) throw new rollBackUpException("超出下限");
+                    textBox1.Text = buff[index].ToString();
+                }
+                if (e.KeyChar == 24)        //ctrl + x  向下
+                {
+                    //只有在非顶部才可以向下
+                    index++;
+                    if (index > buff.Count -1) throw new rollBackDownException("超出上限");
+                    textBox1.Text = buff[index].ToString();
+
+                }
+            }
+            catch(rollBackUpException)
+            {
+                index = 0;
+            }
+            catch(rollBackDownException)
+            {
+                index = buff.Count;
+                textBox1.Text = "";
+            }
+            
         }
 
         private void MainFrm_Load(object sender, EventArgs e)
@@ -63,25 +92,6 @@ namespace SimplestSearchShortcut
             textBox1.ImeMode = ImeMode.OnHalf;      //使文本框在输入时输入法始终是中文
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Up)
-            {
-                if (index >= 0&&index <= buff.Count - 1)    //只有在非底部才可以向上
-                {
-                    textBox1.Text = buff[index].ToString();
-                    index--;
-                }
-                
-            }
-            else if(e.KeyData == Keys.Down)
-            {
-                if (index >= 0&&index <= buff.Count - 1)   //只有在非顶部才可以向下
-                {
-                    textBox1.Text = buff[index].ToString();
-                    index++;
-                }
-            }
-        }
+       
     }
 }
