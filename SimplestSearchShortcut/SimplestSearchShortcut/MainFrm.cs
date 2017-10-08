@@ -31,6 +31,23 @@ namespace SimplestSearchShortcut
                 {
                     this.Close();
                 }
+                else if (textBox1.Text.StartsWith("￥"))     //以“￥”开头表示打开系统应用
+                {
+                    buff.Add(textBox1.Text);
+                    index = buff.Count;
+                                                       //去掉“￥”后的子串
+                    System.Diagnostics.Process.Start(textBox1.Text.Substring(1)+".exe");
+                    textBox1.Text = "";
+                    
+                }
+                else if (textBox1.Text == "shutdown")
+                {
+                    buff.Add(textBox1.Text);
+                    index = buff.Count;
+
+                    System.Diagnostics.Process.Start(@"D:\普软\启动\关机.bat");
+                    textBox1.Text = "";
+                }
                 else if(textBox1.Text == "setting")
                 {
                     SettingFrm s = new SettingFrm();
