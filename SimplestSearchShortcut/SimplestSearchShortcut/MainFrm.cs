@@ -20,35 +20,41 @@ namespace SimplestSearchShortcut
 
         String str = @"https://www.sogou.com/web?ie=UTF-8&query=";
         ArrayList buff = new ArrayList();   //缓存输入过的内容
+        Log logOperator = new Log();
+        FlowLayoutPanel buttonContainer;     //记录容器
         int index ;  //缓冲读取索引
 
+
+        #region 按键事件
+ 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
+        { 
+            if (e.KeyChar == 13)    //enter
             {
-                
-                if (textBox1.Text == "exit")
+                if (textBox1.Text == "exit")                //退出
                 {
                     this.Close();
                 }
                 else if (textBox1.Text.StartsWith("￥"))     //以“￥”开头表示打开系统应用
                 {
-                    buff.Add(textBox1.Text);
+                    buff.Add(textBox1.Text);        //将搜索的内容加入缓存
+                    logOperator.logSave(textBox1.Text);     //将搜索的内容写入本地
                     index = buff.Count;
                                                        //去掉“￥”后的子串
                     System.Diagnostics.Process.Start(textBox1.Text.Substring(1)+".exe");
                     textBox1.Text = "";
                     
                 }
-                else if (textBox1.Text == "shutdown")
+                else if (textBox1.Text == "shutdown")       //关机
                 {
                     buff.Add(textBox1.Text);
+                    
                     index = buff.Count;
 
                     System.Diagnostics.Process.Start(@"D:\普软\启动\关机.bat");
                     textBox1.Text = "";
                 }
-                else if(textBox1.Text == "setting")
+                else if(textBox1.Text == "setting")         //设置搜索引擎
                 {
                     SettingFrm s = new SettingFrm();
                     s.ShowDialog();
@@ -60,6 +66,7 @@ namespace SimplestSearchShortcut
                     //加入缓冲，刷新缓冲读取索引
                     buff.Add(textBox1.Text);
                     index = buff.Count;
+                    logOperator.logSave(textBox1.Text);     //将搜索的内容写入本地
 
                     textBox1.Text = textBox1.Text.Replace("#", "%23");      //将#替换为替代符，使浏览器能识别，下同
                     textBox1.Text = textBox1.Text.Replace(" ", "+");
@@ -68,10 +75,12 @@ namespace SimplestSearchShortcut
                     textBox1.Text = "";
                 } 
             }
+
             if (e.KeyChar == 27)        //esc
             {
                 this.Close();
             }
+
             try
             {
 
@@ -107,12 +116,92 @@ namespace SimplestSearchShortcut
             
         }
 
+        #endregion
+
         private void MainFrm_Load(object sender, EventArgs e)
         {
             textBox1.Size = this.Size;
             textBox1.ImeMode = ImeMode.OnHalf;      //使文本框在输入时输入法始终是中文
+
+            //ArrayList a = new ArrayList();        //Log类测试
+            //a.Add("a");
+            //a.Add("@#!$");
+            //Log l = new Log(a);
+            //l.logSave();
         }
 
-       
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.Height = 212;
+            
+            buttonContainer = new FlowLayoutPanel();        //实例化记录容器
+            buttonContainer.Width = 284;
+            buttonContainer.Height = 212;
+            buttonContainer.Location = new Point(0, 50);
+            this.Controls.Add(buttonContainer);
+
+            Button logContentContainer;     //用于存储记录信息的按钮的引用
+            try
+            {
+                ArrayList logContent = logOperator.logFind(textBox1.Text);
+                for (int i = 0; i < logContent.Count; i++)
+                {
+                    logContentContainer = new Button();     //实例化存储记录信息的按钮
+                    logContentContainer.Width = 284;
+                    logContentContainer.Height = 50;
+                    logContentContainer.BackColor = Color.White;
+                    logContentContainer.MouseEnter += new EventHandler(logContentContainer_MouseEnter);
+                    logContentContainer.MouseLeave += new EventHandler(logContentContainer_MouseLeave);
+                    logContentContainer.KeyPress += new KeyPressEventHandler(logContentContainer_KeyPress);
+                    logContentContainer.Click += new EventHandler(logContentContainer_Click);
+                    logContentContainer.Text = logContent[i].ToString();
+                    buttonContainer.Controls.Add(logContentContainer);
+                }
+            }
+            catch(Exception)
+            {
+                
+            }
+            if (textBox1.Text == "")
+            {
+                this.Controls.Remove(buttonContainer);          //移除记录容器
+                this.Height = 43;
+            }
+
+        }
+        #region logContentContainer事件集中区
+        private void logContentContainer_MouseEnter(object sender, EventArgs e)
+        {
+            Button virtualButton = (Button)sender;
+            virtualButton.BackColor = Color.Blue;
+        }
+
+        private void logContentContainer_MouseLeave(object sender, EventArgs e)
+        {
+            Button virtualButton = (Button)sender;
+            virtualButton.BackColor = Color.White;
+        }
+
+        private void logContentContainer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Button virtualButton = (Button)sender;
+            if (e.KeyChar == 13)
+            {
+                System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
+                textBox1.Text = "";
+                this.Controls.Remove(buttonContainer);      //移除记录容器
+                this.Height = 43;
+            }
+        }
+
+        private void logContentContainer_Click(object sender, EventArgs e)
+        {
+            Button virtualButton = (Button)sender;
+            System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
+            textBox1.Text = "";
+            this.Controls.Remove(buttonContainer);          //移除记录容器
+            this.Height = 40;
+        }
+        #endregion
     }
 }
