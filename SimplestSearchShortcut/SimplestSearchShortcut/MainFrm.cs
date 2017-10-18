@@ -61,6 +61,10 @@ namespace SimplestSearchShortcut
                     str = SettingFrm.item;
                     textBox1.Text = String.Empty;
                 }
+                else if(textBox1.Text == "clearLog")        //清理日志
+                {
+                    Log.clearLog();
+                }
                 else
                 {
                     //加入缓冲，刷新缓冲读取索引
@@ -81,6 +85,11 @@ namespace SimplestSearchShortcut
                 this.Close();
             }
 
+            if (e.KeyChar == 1)     //ctrl + a
+            {
+                textBox1.SelectAll();
+            }
+
             try
             {
 
@@ -99,10 +108,7 @@ namespace SimplestSearchShortcut
                     textBox1.Text = buff[index].ToString();
 
                 }
-                if (e.KeyChar == 1)     //ctrl + a
-                {
-                    textBox1.SelectAll();
-                }
+               
             }
             catch(rollBackUpException)
             {
@@ -123,64 +129,80 @@ namespace SimplestSearchShortcut
             textBox1.Size = this.Size;
             textBox1.ImeMode = ImeMode.OnHalf;      //使文本框在输入时输入法始终是中文
 
-            //ArrayList a = new ArrayList();        //Log类测试
-            //a.Add("a");
-            //a.Add("@#!$");
-            //Log l = new Log(a);
-            //l.logSave();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            this.Height = 212;
-            
             buttonContainer = new FlowLayoutPanel();        //实例化记录容器
             buttonContainer.Width = 284;
             buttonContainer.Height = 212;
-            buttonContainer.Location = new Point(0, 50);
+            buttonContainer.Location = new Point(0, 40);
+            buttonContainer.AllowDrop = true;
             this.Controls.Add(buttonContainer);
 
-            Button logContentContainer;     //用于存储记录信息的按钮的引用
-            try
+            logContent = new ArrayList();       //实例化用于存储，通过log查找方法，查找到的记录的容器
+        }
+
+        ArrayList logContent;   //用于存储，通过log查找方法，查找到的记录的容器
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if(textBox1.Text!= String.Empty)
             {
-                ArrayList logContent = logOperator.logFind(textBox1.Text);
-                for (int i = 0; i < logContent.Count; i++)
+                logContent.Clear();
+                logContent = logOperator.logFind(textBox1.Text);    //查找文本框中的文本在记录中出现的条目，并将全部条目返回到记录容器中
+
+                if (logContent.Count != 0)      //在本地找到以前搜索的条目时
                 {
-                    logContentContainer = new Button();     //实例化存储记录信息的按钮
-                    logContentContainer.Width = 284;
-                    logContentContainer.Height = 50;
-                    logContentContainer.BackColor = Color.White;
-                    logContentContainer.MouseEnter += new EventHandler(logContentContainer_MouseEnter);
-                    logContentContainer.MouseLeave += new EventHandler(logContentContainer_MouseLeave);
-                    logContentContainer.KeyPress += new KeyPressEventHandler(logContentContainer_KeyPress);
-                    logContentContainer.Click += new EventHandler(logContentContainer_Click);
-                    logContentContainer.Text = logContent[i].ToString();
-                    buttonContainer.Controls.Add(logContentContainer);
+                    this.Height = 212;
                 }
+                if (logContent.Count == 0)      //未在本地找到以前搜索的条目时
+                {
+                    buttonContainer.Controls.Clear();       //清空记录容器
+                    this.Height = 40;
+                }
+
+                    Button logContentContainer;     //用于存储记录信息的按钮的引用
+                try
+                {
+                    for (int i = 0; i < logContent.Count; i++)
+                    {
+                        logContentContainer = new Button();     //实例化存储记录信息的按钮
+                        logContentContainer.Width = 284;
+                        logContentContainer.Height = 30;
+                        logContentContainer.TextAlign = ContentAlignment.MiddleLeft;
+                        logContentContainer.FlatStyle = FlatStyle.Flat;
+                        logContentContainer.Font = new Font("微软雅黑", 12, FontStyle.Bold);
+                        logContentContainer.FlatAppearance.MouseOverBackColor = Color.Gray;
+                        logContentContainer.Margin = new Padding(0);
+                        logContentContainer.BackColor = Color.White;
+                        //logContentContainer.MouseEnter += new EventHandler(logContentContainer_MouseEnter);
+                        //logContentContainer.MouseLeave += new EventHandler(logContentContainer_MouseLeave);
+                        logContentContainer.KeyPress += new KeyPressEventHandler(logContentContainer_KeyPress);
+                        logContentContainer.Click += new EventHandler(logContentContainer_Click);
+                        logContentContainer.Text = logContent[i].ToString();
+                        buttonContainer.Controls.Add(logContentContainer);
+                    }
+                }
+                catch (Exception)
+                { }
             }
-            catch(Exception)
+            
+            if (textBox1.Text == String.Empty)
             {
-                
-            }
-            if (textBox1.Text == "")
-            {
-                this.Controls.Remove(buttonContainer);          //移除记录容器
-                this.Height = 43;
+                buttonContainer.Controls.Clear();       //清空记录容器
+                this.Height = 40;
             }
 
         }
         #region logContentContainer事件集中区
-        private void logContentContainer_MouseEnter(object sender, EventArgs e)
-        {
-            Button virtualButton = (Button)sender;
-            virtualButton.BackColor = Color.Blue;
-        }
+        //private void logContentContainer_MouseEnter(object sender, EventArgs e)
+        //{
+        //    Button virtualButton = (Button)sender;
+        //    virtualButton.BackColor = Color.Blue;
+        //}
 
-        private void logContentContainer_MouseLeave(object sender, EventArgs e)
-        {
-            Button virtualButton = (Button)sender;
-            virtualButton.BackColor = Color.White;
-        }
+        //private void logContentContainer_MouseLeave(object sender, EventArgs e)
+        //{
+        //    Button virtualButton = (Button)sender;
+        //    virtualButton.BackColor = Color.White;
+        //}
 
         private void logContentContainer_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -189,8 +211,7 @@ namespace SimplestSearchShortcut
             {
                 System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
                 textBox1.Text = "";
-                this.Controls.Remove(buttonContainer);      //移除记录容器
-                this.Height = 43;
+                this.Height = 40;
             }
         }
 
@@ -199,7 +220,6 @@ namespace SimplestSearchShortcut
             Button virtualButton = (Button)sender;
             System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
             textBox1.Text = "";
-            this.Controls.Remove(buttonContainer);          //移除记录容器
             this.Height = 40;
         }
         #endregion
