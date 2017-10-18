@@ -19,10 +19,23 @@ namespace SimplestSearchShortcut
         }
 
         String str = @"https://www.sogou.com/web?ie=UTF-8&query=";
-        ArrayList buff = new ArrayList();   //缓存输入过的内容
+
+        /// <summary>
+        /// 缓存输入过的内容
+        /// </summary>
+        ArrayList buff = new ArrayList();
+
         Log logOperator = new Log();
-        FlowLayoutPanel buttonContainer;     //记录容器
-        int index ;  //缓冲读取索引
+
+        /// <summary>
+        /// 记录容器
+        /// </summary>
+        FlowLayoutPanel buttonContainer;     
+        
+        /// <summary>
+        /// 缓冲读取索引
+        /// </summary>
+        int index ; 
 
 
         #region 按键事件
@@ -64,6 +77,7 @@ namespace SimplestSearchShortcut
                 else if(textBox1.Text == "clearLog")        //清理日志
                 {
                     Log.clearLog();
+                    textBox1.Text = String.Empty;
                 }
                 else
                 {
@@ -139,7 +153,10 @@ namespace SimplestSearchShortcut
             logContent = new ArrayList();       //实例化用于存储，通过log查找方法，查找到的记录的容器
         }
 
-        ArrayList logContent;   //用于存储，通过log查找方法，查找到的记录的容器
+        /// <summary>
+        /// 用于存储，通过log查找方法，查找到的记录的容器
+        /// </summary>
+        ArrayList logContent;   
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

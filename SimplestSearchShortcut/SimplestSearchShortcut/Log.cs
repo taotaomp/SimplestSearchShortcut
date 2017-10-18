@@ -36,7 +36,7 @@ namespace SimplestSearchShortcut
             try
             {
                 StreamWriter sw = new StreamWriter("log", true, Encoding.UTF8);
-                if (!container.Contains(str))
+                if (!container.Contains(str) && str != String.Empty)    //要存入本地的记录不在本地存在且不为空
                 {
                     sw.WriteLine(str);
                 } 
