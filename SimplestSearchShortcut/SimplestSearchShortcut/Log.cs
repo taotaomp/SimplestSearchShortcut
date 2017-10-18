@@ -41,7 +41,10 @@ namespace SimplestSearchShortcut
                     sw.WriteLine(str);
                 } 
                 sw.Close();
-                container.Add(str);     //在将新的条目写入本地文件中后，同时将其加到内存的比较容器中，一遍能在不退出程序的情况下再次通过logFind方法获取结果
+                if (!container.Contains(str))
+                {
+                    container.Add(str);     //在将新的条目写入本地文件中后，同时将其加到内存的比较容器中，一遍能在不退出程序的情况下再次通过logFind方法获取结果
+                }
                 return true;
             }
             catch(Exception)

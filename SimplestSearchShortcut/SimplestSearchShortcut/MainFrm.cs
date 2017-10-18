@@ -150,6 +150,7 @@ namespace SimplestSearchShortcut
 
                 if (logContent.Count != 0)      //在本地找到以前搜索的条目时
                 {
+                    buttonContainer.Controls.Clear();       //清空记录容器
                     this.Height = 212;
                 }
                 if (logContent.Count == 0)      //未在本地找到以前搜索的条目时
