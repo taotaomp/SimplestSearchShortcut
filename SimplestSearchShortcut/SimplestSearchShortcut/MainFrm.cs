@@ -55,7 +55,7 @@ namespace SimplestSearchShortcut
                     index = buff.Count;
                                                        //去掉“￥”后的子串
                     System.Diagnostics.Process.Start(textBox1.Text.Substring(1)+".exe");
-                    textBox1.Text = "";
+                    textBox1.Text = String.Empty;
                     
                 }
                 else if (textBox1.Text == "shutdown")       //关机
@@ -65,7 +65,7 @@ namespace SimplestSearchShortcut
                     index = buff.Count;
 
                     System.Diagnostics.Process.Start(@"D:\普软\启动\关机.bat");
-                    textBox1.Text = "";
+                    textBox1.Text = String.Empty;
                 }
                 else if(textBox1.Text == "setting")         //设置搜索引擎
                 {
@@ -76,7 +76,7 @@ namespace SimplestSearchShortcut
                 }
                 else if(textBox1.Text == "clearLog")        //清理日志
                 {
-                    Log.clearLog();
+                    logOperator.clearLog();
                     textBox1.Text = String.Empty;
                 }
                 else
@@ -90,7 +90,7 @@ namespace SimplestSearchShortcut
                     textBox1.Text = textBox1.Text.Replace(" ", "+");
 
                     System.Diagnostics.Process.Start("chrome.exe", str +textBox1.Text);
-                    textBox1.Text = "";
+                    textBox1.Text = String.Empty;
                 } 
             }
 
@@ -131,7 +131,7 @@ namespace SimplestSearchShortcut
             catch(rollBackDownException)
             {
                 index = buff.Count;
-                textBox1.Text = "";
+                textBox1.Text = String.Empty;
             }
             
         }
@@ -228,7 +228,7 @@ namespace SimplestSearchShortcut
             if (e.KeyChar == 13)
             {
                 System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
-                textBox1.Text = "";
+                textBox1.Text = String.Empty;
                 this.Height = 40;
             }
         }
@@ -237,7 +237,7 @@ namespace SimplestSearchShortcut
         {
             Button virtualButton = (Button)sender;
             System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
-            textBox1.Text = "";
+            textBox1.Text = String.Empty;
             this.Height = 40;
         }
         #endregion

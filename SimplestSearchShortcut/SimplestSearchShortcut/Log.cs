@@ -95,12 +95,13 @@ namespace SimplestSearchShortcut
         /// <summary>
         /// 清除所有的日志
         /// </summary>
-        public static void clearLog()
+        public void clearLog()
         {
             try
             {
                 StreamWriter sw = new StreamWriter("log", false);
                 sw.Close();
+                container.Clear();
             }
             catch(Exception)
             {
