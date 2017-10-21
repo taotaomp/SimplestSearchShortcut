@@ -9,7 +9,7 @@
 * Input commands start with"£¤" (the symbol of RMB XD)then press Enter -> you can open the system application. for example: £¤cmd
 * Input "clearLog" then press Enter -> you can clear the log in local
 
-###Shortcut key
+### Shortcut key
 1. ctlr+z:roll back the command you have inputed
 2. ctlr+x:next command before you have used roll back
 3. TAB select element under the textbox if there is.
