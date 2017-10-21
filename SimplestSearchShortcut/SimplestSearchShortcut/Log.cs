@@ -99,8 +99,9 @@ namespace SimplestSearchShortcut
         {
             try
             {
-                StreamWriter sw = new StreamWriter("log", false);
-                sw.Close();
+                //StreamWriter sw = new StreamWriter("log", false);
+                //sw.Close();
+                File.Delete("log");
                 container.Clear();
             }
             catch(Exception)
