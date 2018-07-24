@@ -89,7 +89,7 @@ namespace SimplestSearchShortcut
                     textBox1.Text = textBox1.Text.Replace("#", "%23");      //将#替换为替代符，使浏览器能识别，下同
                     textBox1.Text = textBox1.Text.Replace(" ", "+");
 
-                    System.Diagnostics.Process.Start("chrome.exe", str +textBox1.Text);
+                    System.Diagnostics.Process.Start(str +textBox1.Text);
                     textBox1.Text = String.Empty;
                 } 
             }
@@ -227,7 +227,7 @@ namespace SimplestSearchShortcut
             Button virtualButton = (Button)sender;
             if (e.KeyChar == 13)
             {
-                System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
+                System.Diagnostics.Process.Start(str + virtualButton.Text);
                 textBox1.Text = String.Empty;
                 this.Height = 40;
             }
@@ -236,7 +236,7 @@ namespace SimplestSearchShortcut
         private void logContentContainer_Click(object sender, EventArgs e)
         {
             Button virtualButton = (Button)sender;
-            System.Diagnostics.Process.Start("chrome.exe", str + virtualButton.Text);
+            System.Diagnostics.Process.Start(str + virtualButton.Text);
             textBox1.Text = String.Empty;
             this.Height = 40;
         }
